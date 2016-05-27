@@ -181,7 +181,7 @@ void loop(void) {
       Serial.print(modelabel[mode - 1]);
       Serial.print('\n');
   
-      Serial.print(F("Digite um valor para entre 20.00 e 45.00 para configurar o setpoint."));
+      Serial.print(F("Digite um valor para entre 20.00 e 60.00 para configurar o setpoint."));
       Serial.print('\n');
     }
     else{
@@ -198,7 +198,7 @@ void loop(void) {
 
     setpointmessage = getvaluef(serialmessage);
     
-    if (setpointmessage >= 20.0 && setpointmessage <= 45.0){
+    if (setpointmessage >= 20.0 && setpointmessage <= 60.0){
       setpoint = setpointmessage;
       timercontrol = millis();
       serialmessage = "";
@@ -208,7 +208,7 @@ void loop(void) {
       Serial.print('\n');
       Serial.println(F("O valor digitado para o setpoint esta fora da escala."));
       Serial.println(F("Por favor, digite um valor válido."));
-      Serial.println(F("Digite um valor para entre 20.00 e 45.00 para configurar o setpoint."));
+      Serial.println(F("Digite um valor para entre 20.00 e 60.00 para configurar o setpoint."));
       
     }
         
