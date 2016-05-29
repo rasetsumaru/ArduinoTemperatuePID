@@ -123,9 +123,11 @@ class PID{
 };
 
 
-  #define       pSensor  A0
-  #define       pLed      2
-  #define       pControle 3
+  #define       pSensor     A0
+  #define       pLed        2
+  #define       pControle   3
+  #define       setPointMin 20.0
+  #define       setPointMax 50.0
 
   HIS           temperatureHIS (1.0);
   PID           temperaturePID (1.0, 0.05, 0.05);
@@ -161,7 +163,17 @@ float getvaluef(String pString){
   return atof(vTempValue);
   
 }
-  
+
+void msgEscala(void){
+  Serial.print('\n');
+  Serial.print(F("Digite um valor entre "));
+  Serial.print(setPointMin, 2);
+  Serial.print(" e "); 
+  Serial.print(setPointMax, 2);
+  Serial.print(F(" para configurar o setpoint.")); 
+  Serial.print('\n'); 
+}
+
 void loop(void) {
 
   unsigned long timer = millis();
@@ -180,15 +192,16 @@ void loop(void) {
       Serial.print('\n');
       Serial.print(modelabel[mode - 1]);
       Serial.print('\n');
-  
-      Serial.print(F("Digite um valor entre 20.00 e 60.00 para configurar o setpoint."));
-      Serial.print('\n');
+      msgEscala();
     }
     else{
       Serial.print('\n');
-      Serial.println(F("O valor digitado para o modo de controle não é valido."));
-      Serial.println(F("Por favor, digite um valor válido."));
-      Serial.println(F("Digite '1' para Histerese e '2' para PID."));
+      Serial.print(F("O valor digitado para o modo de controle não é valido."));
+      Serial.print('\n');
+      Serial.print(F("Por favor, digite um valor válido."));
+      Serial.print('\n');
+      Serial.print(F("Digite '1' para Histerese e '2' para PID."));
+      Serial.print('\n');
     }
   }
   
@@ -198,7 +211,7 @@ void loop(void) {
 
     setpointmessage = getvaluef(serialmessage);
     
-    if (setpointmessage >= 20.0 && setpointmessage <= 60.0){
+    if (setpointmessage >= setPointMin && setpointmessage <= setPointMax){
       setpoint = setpointmessage;
       timercontrol = millis();
       serialmessage = "";
@@ -206,10 +219,10 @@ void loop(void) {
     }
     else{
       Serial.print('\n');
-      Serial.println(F("O valor digitado para o setpoint esta fora da escala."));
-      Serial.println(F("Por favor, digite um valor válido."));
-      Serial.println(F("Digite um valor entre 20.00 e 60.00 para configurar o setpoint."));
-      
+      Serial.print(F("O valor digitado para o setpoint esta fora da escala."));
+      Serial.print('\n');
+      Serial.print(F("Por favor, digite um valor válido."));
+      msgEscala();
     }
         
   }
