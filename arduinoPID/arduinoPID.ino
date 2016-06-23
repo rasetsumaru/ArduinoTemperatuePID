@@ -171,7 +171,8 @@ void msgEscala(void){
   Serial.print(" e "); 
   Serial.print(setPointMax, 2);
   Serial.print(F(" para configurar o setpoint.")); 
-  Serial.print('\n'); 
+  Serial.print('\n');
+  Serial.print("Solitec");
 }
 
 void loop(void) {
